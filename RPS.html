@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<script>
+
+rps = ["rock", "paper", "scissors"]
+playerScore = 0;
+computerScore = 0;
+
+
+function computerPlay(){
+    x = Math.floor((Math.random() * rps.length) + 1);
+    comp = rps[x - 1];
+    return comp;
+}
+
+function playRound(){
+
+    choice = window.prompt('Rock, Paper or Scissors?');
+    playerSelection = choice.toLowerCase();
+    computerSelection = computerPlay();
+
+    if (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors"){
+        return "invalid input";
+    }else if(playerSelection === computerSelection){
+        return "tie";
+    }else if((playerSelection === "rock" && computerSelection === "paper")
+    ||(playerSelection === "paper" && computerSelection === "scissors")
+    ||(playerSelection === "scissors" && computerSelection ==="rock")){
+        computerScore = computerScore + 1;
+        return "you lose! " + computerSelection + " beats " + playerSelection;
+    }else 
+        playerScore = playerScore + 1;
+        return "you win! " + playerSelection + " beats " + computerSelection;
+}
+
+function game(){
+    if (playerScore == 5 || computerScore == 5){
+        playerScore = 0;
+        computerScore = 0;
+    }
+
+    round = playRound();
+
+    if (round.includes("win")){
+        if (playerScore != 5 && computerScore != 5){
+           return round + ". Score is: " + playerScore +" | "+ computerScore;
+        }else if (playerScore == 5){
+            return "You won the match! Final score is: " + playerScore +" | "+ computerScore;
+        }
+    }
+    else if (round.includes("lose")){
+        if (playerScore != 5 && computerScore != 5){
+            return round +". Score is: " + playerScore +" | "+ computerScore;
+        }else if (computerScore == 5){
+            return "You lost the match! Final score is: " + playerScore +" | "+ computerScore;
+        }
+    }
+    else if (round.includes("tie)")){
+        return round +". Score is: " + playerScore +" | " + computerScore;
+        
+    }else
+        return round;
+}
+
+</script>
+
+
+</body>
+</html>

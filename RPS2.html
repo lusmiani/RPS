@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id = 'rpsButtons'>
+        <button id = 'rock'>ROCK</button>
+        <button id = 'paper'>PAPER</button>
+        <button id = 'scissors'>SCISSORS</button>
+    </div>
+    <div id = 'results'>
+        <h1>RESULTS</h1>
+        
+    </div>
+<script>
+
+rps = ['rock', 'paper', 'scissors']
+playerScore = 0;
+computerScore = 0;
+
+const results = document.querySelector('#results');
+
+const outcome = document.createElement('div');
+outcome.classList.add('outcome');
+outcome.textContent = '';
+results.appendChild(outcome);
+
+const score = document.createElement('div');
+score.classList.add('score');
+score.textContent = playerScore + ' | ' + computerScore;
+results.appendChild(score);
+
+function computerPlay(){
+    x = Math.floor((Math.random() * rps.length) + 1);
+    comp = rps[x - 1];
+    return comp;
+}
+
+function playRound(x){
+
+playerSelection = x;
+computerSelection = computerPlay();
+
+
+results.removeChild(outcome);
+results.removeChild(score);
+
+if (playerScore < 5 && computerScore < 5){
+    if (playerSelection === computerSelection){
+        message = 'tie';
+        outcome.textContent = message;
+        results.appendChild(outcome);
+        score.textContent = playerScore + ' | ' + computerScore
+        results.appendChild(score);
+
+    }else if((playerSelection === 'rock' && computerSelection === 'paper')
+    ||(playerSelection === 'paper' && computerSelection === 'scissors')
+    ||(playerSelection === 'scissors' && computerSelection === 'rock')){
+        message = 'You Lose! ' + computerSelection + ' beats ' + playerSelection;
+        computerScore++;
+        if (computerScore === 5){
+        outcome.textContent = 'GAME OVER! YOU LOSE! PATHETIC!'
+        results.appendChild(outcome);
+        score.textContent = playerScore + ' | ' + computerScore
+        results.appendChild(score);
+        }else
+        outcome.textContent = message;
+        results.appendChild(outcome);
+        score.textContent = playerScore + ' | ' + computerScore
+        results.appendChild(score);
+        
+    }else if((playerSelection === 'rock' && computerSelection === 'scissors')
+    ||(playerSelection === 'paper' && computerSelection === 'rock')
+    ||(playerSelection === 'scissors' && computerSelection === 'paper')){
+        message = 'You Win! ' + playerSelection + ' beats ' + computerSelection;
+        playerScore++;
+        if (playerScore === 5){
+        outcome.textContent = 'GAME OVER! YOU WIN!';
+        results.appendChild(outcome);
+        score.textContent = playerScore + ' | ' + computerScore
+        results.appendChild(score);
+        }else
+        outcome.textContent = message;
+        results.appendChild(outcome);
+        score.textContent = playerScore + ' | ' + computerScore
+        results.appendChild(score);
+        }
+    }
+}
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', function() {
+        playRound(button.id);
+
+    });
+});
+
+
+
+
+</script>
+
+
+</body>
+</html>
